@@ -2,29 +2,32 @@ from math import factorial
 from random import choice
 from itertools import permutations
 
+
 set_of_words = {"cлишком", "стар", "я"}
 
 
-# permuts = lambda x: " ".join("".join(x) for x in permutations(x))
+# permutes = lambda x: " ".join("".join(x) for x in permutations(x))
 # print("first way:", )
-# print(permuts(set_of_words))
+# print(permutes(set_of_words))
 # print()
 # oh, we need a generator ok
 
-def easy_gen(set_of_words: set):
-    p=permutations(set_of_words)
-    for i in range(factorial(len(set_of_words))):
+
+def permutes_gen1(elements: set):
+    p = permutations(elements)
+    for i in range(factorial(len(elements))):
         yield "".join(p.__next__())
 
 
-perms = easy_gen(set_of_words)
+perms = permutes_gen1(set_of_words)
 print("first way:", )
 for i in perms:
     print(i,end=" ")
 print("\n")
 
+
 # bad method, but i think it's fun
-def permut_2(elements: set) -> str:
+def permutes_gen2(elements: set) -> str:
     res = list()
     tempelem = ""
     while len(res) != factorial(len(elements)):
@@ -39,18 +42,15 @@ def permut_2(elements: set) -> str:
         tempelem = ""
 
 
-
 print("second way:", )
-# print(permut_2({"cлишком", "стар", "я"}))
-
-perms = permut_2(elements=set_of_words)
+perms = permutes_gen2(set_of_words)
 for i in perms:
     print(i, end=" ")
-# Копия вывода в виде комментария помещается в конец файла с кодом задачи.
-"""
-first way:
-яcлишкомстар ястарcлишком cлишкомястар cлишкомстаря старяcлишком старcлишкомя
 
-second way:
-cлишкомстаря cлишкомястар старcлишкомя старяcлишком яcлишкомстар ястарcлишком
-"""
+
+# stdout:
+# first way:
+# яcлишкомстар ястарcлишком cлишкомястар cлишкомстаря старяcлишком старcлишкомя
+#
+# second way:
+# cлишкомстаря cлишкомястар старcлишкомя старяcлишком яcлишкомстар ястарcлишком
