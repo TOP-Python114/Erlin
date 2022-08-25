@@ -1,0 +1,8 @@
+name: sleepy 
+	positional args: () 
+	keyword args: {'d': 6} 
+
+name: printy 
+	positional args: ('romero',) 
+	keyword args: {} 
+

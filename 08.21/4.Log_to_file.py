@@ -1,20 +1,20 @@
-from os import path
+# ИСПОЛЬЗОВАТЬ: применяйте более современный и удобный модуль pathlib для работы с путями и файлами
+from pathlib import Path
+from sys import argv
 from time import sleep
 
+# ИСПОЛЬЗОВАТЬ: правильно указывайте путь до каталога с файлом скрипта
+logfile = Path(argv[0]).parent / 'log.txt'
 
 def logging(func):
     def wrapper(*args, **kwargs):
         func(*args, **kwargs)
-        if path.exists("log.txt"):
-            with open("log.txt", "a") as fp:
-                fp.write(f"name: {func.__name__} \n"
-                         f"\tpositional args: {args} \n"
-                         f"\tkeyword args: {kwargs} \n\n")
-        else:
-            with open("log.txt", "w") as fp:
-                fp.write(f"name: {func.__name__} \n"
-                         f"\tpositional args: {args} \n"
-                         f"\tkeyword args: {kwargs} \n\n")
+        # ИСПОЛЬЗОВАТЬ: нет нужды в проверке на существование файла — будучи открытым в режиме добавления, этот файл будет создан, если ещё не существует
+        #               а вот кодировку лучше указать, так как по умолчанию данный параметр будет определён ОС
+        with open(logfile, "a", encoding='utf-8') as fp:
+            fp.write(f"name: {func.__name__} \n"
+                     f"\tpositional args: {args} \n"
+                     f"\tkeyword args: {kwargs} \n\n")
     return wrapper
 
 
@@ -28,3 +28,8 @@ def printy(wordy):
 
 sleepy(d=6)
 printy("romero")
+
+# КОММЕНТАРИЙ: файл журнала зачем убрали под игнор? в задании писал: прикрепить
+
+
+# ИТОГ: хорошо — 5/6
