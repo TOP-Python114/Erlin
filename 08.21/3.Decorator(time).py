@@ -3,16 +3,16 @@ from time import time_ns, sleep, perf_counter
 
 def func_duration(func):
     def wrapper(*args, **kwargs):
-        t = time_ns()
+        start = time_ns()
         func(*args, **kwargs)
-        print(f"функция отработала за {(time_ns() - t)/10**9:.2f} сек")
+        print(f"функция отработала за {(time_ns() - start)/10**9:.2f} сек")
     return wrapper
 
 def func_duration_2(func):
     def wrapper(*args, **kwargs):
-        t = perf_counter()
+        start = perf_counter()
         func(*args, **kwargs)
-        print(f"функция отработала за {perf_counter() - t} сек")
+        print(f"функция отработала за {perf_counter() - start} сек")
     return wrapper
 
 

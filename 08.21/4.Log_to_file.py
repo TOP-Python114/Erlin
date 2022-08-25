@@ -6,11 +6,15 @@ def logging(func):
     def wrapper(*args, **kwargs):
         func(*args, **kwargs)
         if path.exists("log.txt"):
-            with open("log.txt","a") as fp:
-                fp.write(f"name: {func.__name__} positional args: {args} keyword args: {kwargs} \n")
+            with open("log.txt", "a") as fp:
+                fp.write(f"name: {func.__name__} \n"
+                         f"\tpositional args: {args} \n"
+                         f"\tkeyword args: {kwargs} \n\n")
         else:
-            with open("log.txt","w") as fp:
-                fp.write(f"name: {func.__name__} positional args: {args} keyword args: {kwargs} \n")
+            with open("log.txt", "w") as fp:
+                fp.write(f"name: {func.__name__} \n"
+                         f"\tpositional args: {args} \n"
+                         f"\tkeyword args: {kwargs} \n\n")
     return wrapper
 
 
