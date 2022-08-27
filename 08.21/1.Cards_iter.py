@@ -10,6 +10,7 @@ from random import choice
 """
 
 # КОММЕНТАРИЙ: deck – колода
+#Ok
 deck1 = ((i, j) for j in ("черви", "бубны", "пики", "крести") for i in range(1, 14))
 # maybe so:
 # cards = ((i, j) for j in ("черви", "бубны", "пики", "крести") for i in list(range(2,14)) + [1])
@@ -18,6 +19,8 @@ for i in range(52):
 print()
 
 # ОТВЕТИТЬ: зачем этот блок, если вы знаете количество карт в колоде?
+# Просто чтобы показать что это итератор, чтобы пепрехвать исключение после прохождения по нему
+
 try:
     print(deck1.__next__())
 except StopIteration:
