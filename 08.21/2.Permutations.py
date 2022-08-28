@@ -1,16 +1,10 @@
+from __future__ import annotations
+
 from math import factorial
 from random import choice
 from itertools import permutations
 
-
 set_of_words = {"cлишком", "стар", "я"}
-
-
-# permutes = lambda x: " ".join("".join(x) for x in permutations(x))
-# print("first way:", )
-# print(permutes(set_of_words))
-# print()
-# oh, we need a generator ok
 
 
 def permutes_gen1(elements: set):
@@ -19,20 +13,27 @@ def permutes_gen1(elements: set):
         yield "".join(p)
 
 
-perms = permutes_gen1(set_of_words)
-print("first way:", )
-for i in perms:
-    print(i,end=" ")
-print("\n")
-
 
 # bad method, but i think it's fun
 # ИСПРАВИТЬ: как насчёт адекватной собственной функции по нахождению перестановок? смешной вариант можно было предложить третьим, а пока незачёт
-def permutes_gen2(elements: set) -> str:
+#исправил
+def permutes_gen2(elements:set|list):
+    elements=list(elements)
+    if len(elements) <=1:
+        yield elements
+    else:
+        for permutation in permutes_gen2(elements[1:]):
+            for i in range(len(elements)):
+                yield permutation[:i] + elements[0:1] + permutation[i:]
+
+
+def permutes_gen3(elements: set) -> str:
+    fact_of_set = factorial(len(elements))
     res = list()
     tempelem = ""
     # ИСПРАВИТЬ: не стоит вычислять факториал на каждой итерации
-    while len(res) != factorial(len(elements)):
+    # исправил
+    while len(res) != fact_of_set:
         temp_set = set(elements)
         while temp_set:
             a = choice(list(temp_set))
@@ -43,18 +44,29 @@ def permutes_gen2(elements: set) -> str:
             res.append(tempelem)
         tempelem = ""
 
-
-print("second way:", )
-perms = permutes_gen2(set_of_words)
+print("first way:")
+a=permutes_gen1(set_of_words)
+for i in a:
+    print("".join(i), end=" ")
+print("\n")
+print("second way:")
+a=permutes_gen2(set_of_words)
+for i in a:
+    print("".join(i), end=" ")
+print("\n")
+print("third way:")
+perms = permutes_gen3(set_of_words)
 for i in perms:
     print(i, end=" ")
-
 
 # stdout:
 # first way:
 # яcлишкомстар ястарcлишком cлишкомястар cлишкомстаря старяcлишком старcлишкомя
 #
-# second way:
+#second way
+#слишкомястар яслишкомстар ястарслишком слишкомстаря старслишкомя старяслишком
+
+# third way:
 # cлишкомстаря cлишкомястар старcлишкомя старяcлишком яcлишкомстар ястарcлишком
 
 
