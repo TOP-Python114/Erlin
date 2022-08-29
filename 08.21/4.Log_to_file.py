@@ -4,6 +4,7 @@ from sys import argv
 from time import sleep
 
 # ИСПОЛЬЗОВАТЬ: правильно указывайте путь до каталога с файлом скрипта
+#ok
 logfile = Path(argv[0]).parent / 'log.txt'
 
 def logging(func):
@@ -11,6 +12,8 @@ def logging(func):
         func(*args, **kwargs)
         # ИСПОЛЬЗОВАТЬ: нет нужды в проверке на существование файла — будучи открытым в режиме добавления, этот файл будет создан, если ещё не существует
         #               а вот кодировку лучше указать, так как по умолчанию данный параметр будет определён ОС
+
+        #ок
         with open(logfile, "a", encoding='utf-8') as fp:
             fp.write(f"name: {func.__name__} \n"
                      f"\tpositional args: {args} \n"
