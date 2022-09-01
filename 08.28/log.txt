@@ -1,0 +1,6 @@
+2022-09-01 13:06:05.359146  command: command1,результат: output of command1 
+2022-09-01 13:06:05.805819  command: command1,результат: output of command1 
+2022-09-01 13:06:06.157485  command: command1,результат: output of command1 
+2022-09-01 13:06:06.493766  command: command1,результат: output of command1 
+2022-09-01 13:06:06.774289  command: command1,результат: output of command1 
+2022-09-01 13:06:07.142184  command: command1,результат: output of command1 
