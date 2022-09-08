@@ -21,7 +21,7 @@ class ClassBuilder:
         type_chr: нужен для формирования кавычек у строковых значений
         :return:
         """
-        type_chr = lambda t: not isinstance(t, int)
+        type_chr = lambda t: isinstance(t, str)
         if not self.fields:
             return f"Class {self.cn.title()}:\n\tpass"
         formatted_fields = '\n\t\t'.join(
