@@ -3,7 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Union
 from sys import argv
+
 index_file = Path(argv[0]).parent / 'index.html'
+
 
 class HTMLElement:
     default_indent_size = 4
@@ -49,10 +51,14 @@ class HTMLBuilder:
             HTMLElement(name, value, **attrs)
         ]
         return self
-    def to_html(self):
-        pass
+
     def __str__(self):
         return str(self.__root)
+
+    def to_html(self):
+        with open(index_file, "w", encoding="utf8") as fp:
+            fp.write(str(self))
+        return self
 
 
 class CVBuilder:
@@ -94,28 +100,17 @@ class CVBuilder:
             for project in self.projects:
                 tempp = about.add_child("div", f"{project[0]}")
                 tempp.add_sibling("br")
-                for image in project[1:]:
-                    tempp.add_child("img", src=image, width="80px", height="80px")
+                # есть ли картинки в проектах
+                if len(project) > 1:
+                    for image in project[1:]:
+                        tempp.add_child("img", src=image, width="80px", height="80px")
 
         for contact in self.contacts:
             about.add_sibling("p", f"{contact}"[1:-1])
         self.body.add_sibling("style",
                               "#about{background-color:darkgrey;margin-left: 40%;padding: 10px 50px 10px;width:200px;})")
 
-        with open(index_file, "w",encoding="utf8") as fp:
-            fp.write(str(self.html))
-
         return self.html
-
-
-
-
-
-
-
-
-    # def __str__(self):
-    #     return str(self.html)
 
 
 cv1 = CVBuilder('Иванов Иван Иванович', 26, 'художник-фрилансер', email='ivv@abc.de') \
@@ -127,7 +122,6 @@ cv1 = CVBuilder('Иванов Иван Иванович', 26, 'художник-
                  "https://semantica.in/wp-content/uploads/2017/12/580b57fcd9996e24bc43c4c4-300x300-2.png",
                  "https://st2.depositphotos.com/1014014/7742/i/600/depositphotos_77422142-stock-photo-references-check-mark-sign-concept.jpg") \
  \
-    .build()
+    .build().to_html()
 
-cv1.to_html()
 print(cv1)
