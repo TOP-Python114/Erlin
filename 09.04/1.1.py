@@ -4,7 +4,7 @@ from __future__ import annotations
 class ClassBuilder:
     def __init__(self, class_name: str):
         self.cn = class_name
-        self.fields: list[str] = []
+        self.fields: list[tuple[str, str | int | bool]] = []
 
     def add_field(self, *field: str | int | bool):
         """
