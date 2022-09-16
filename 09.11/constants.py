@@ -30,7 +30,7 @@ class Accidental(str, Enum):
     FLAT = 'flat'
     D_FLAT = 'double flat'
 
-class Duration(Enum):
+class Duration(int,Enum):
     DOUBLE = 0
     WHOLE = 1
     HALF = 2
