@@ -28,19 +28,24 @@ class Note:
         return res
 
     def __str__(self):
-        return f"Высота:{self.pitch}, Октава:{self.octave}" + f", Accidental: {self.accidental}" * (
-                self.accidental is not None) + f", Продолжительность: {self.duration}"
+        return f"Высота:{self.pitch}," \
+               f" Октава:{self.octave}" + f", Accidental: {self.accidental}" * (
+                       self.accidental is not None) + f", Продолжительность: {self.duration}"
 
 
 class ScoreNote(Note):
     """Изображение музыкальной ноты в партитуре."""
-    def __init__(self, *, pitch: Pitch, octave: Octave, stem_up: bool, beam: bool = False,
+
+    def __init__(self, *, pitch: Pitch, octave: Octave,
+                 stem_up: bool, beam: bool = False,
                  accidental: Accidental = None,
                  duration: Duration = Duration.QUARTER):
         super().__init__(pitch=pitch, octave=octave, accidental=accidental, duration=duration)
         self.stem_up = stem_up
         self.beam = beam
 
+    def __str__(self):
+        return super().__str__() + f", stem_up: {self.stem_up}" + f", beam: {self.beam}"
 
 
 class MIDINote(Note):
@@ -56,13 +61,18 @@ class MIDINote(Note):
 
 
 note1 = Note(pitch=Pitch.B, octave=Octave.LINE_3, duration=Duration.QUARTER, accidental=Accidental.FLAT)
-
-midi_c3 = MIDINote(pitch=Pitch.C, octave=Octave.LINE_1, velocity=80, duration=Duration.HALF)
-clone_midi = midi_c3.clone(pitch=Pitch.D, duration=Duration.WHOLE)
+midi_c1 = MIDINote(pitch=Pitch.C, octave=Octave.LINE_1, velocity=80, duration=Duration.HALF)
+score_d3 = ScoreNote(pitch=Pitch.D, octave=Octave.LINE_3, stem_up=True)
+clone_score = score_d3.clone(octave=Octave.GREAT)
+clone_midi = midi_c1.clone(pitch=Pitch.D, duration=Duration.WHOLE)
 
 print("Миди_нота:")
-print(midi_c3,"\n")
+print(midi_c1, "\n")
 print("Клонированная миди нота с измененными аттрибутами:")
+print(clone_midi, "\n")
+print("Нота в партитуре: ")
+print(score_d3, "\n")
+print("Клонированная нота в партитуре с измененными аттрибутами:")
 print(clone_midi)
 
 """
@@ -70,5 +80,12 @@ print(clone_midi)
 Высота:1, Октава:3, Продолжительность: 2, скорость: 80 
 
 Клонированная миди нота с измененными аттрибутами:
+Высота:2, Октава:3, Продолжительность: 1, скорость: 80 
+
+Нота в партитуре: 
+Высота:2, Октава:5, Продолжительность: 4, stem_up: True, beam: False 
+
+Клонированная нота в партитуре с измененными аттрибутами:
 Высота:2, Октава:3, Продолжительность: 1, скорость: 80
+
 """
