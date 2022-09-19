@@ -6,13 +6,14 @@ class ClassBuilder:
         self.cn = class_name
         self.fields: list[tuple[str, str | int | bool]] = []
 
-    def add_field(self, *field: str | int | bool):
+    def add_field(self, name: str, value: str | int | bool):
         """
         метод для добавления полей в список
-        :param field: пара имя:значение поля
+        :param name: аттрибут
+        :param value: значение
         :return:
         """
-        self.fields += [field]
+        self.fields += [(name, value)]
         return self
 
     def __str__(self):
@@ -35,6 +36,7 @@ athlete = ClassBuilder("armwrestler")
 
 print(athlete)
 print()
+
 athlete.add_field("name", "Alex Kurdecha").add_field("age", 28).add_field("senior", True)
 
 print(athlete)
