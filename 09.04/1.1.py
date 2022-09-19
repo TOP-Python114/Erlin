@@ -2,6 +2,9 @@ from __future__ import annotations
 
 
 class ClassBuilder:
+    """
+    класс строитель формирующий текст кода класса, с конструктором и без с возможностью добавления полей
+    """
     def __init__(self, class_name: str):
         self.cn = class_name
         self.fields: list[tuple[str, str | int | bool]] = []
@@ -11,7 +14,7 @@ class ClassBuilder:
         метод для добавления полей в список
         :param name: аттрибут
         :param value: значение
-        :return:
+        :return: возвращает список кортежей - пар имя аттрибута - значение аттрибута
         """
         self.fields += [(name, value)]
         return self
@@ -20,7 +23,7 @@ class ClassBuilder:
         """
         формирование готового кода и вывод
         type_chr: нужен для формирования кавычек у строковых значений
-        :return:
+        :return: возвращает строковое предтавление готового текста класса
         """
         type_chr = lambda t: isinstance(t, str)
         if not self.fields:
