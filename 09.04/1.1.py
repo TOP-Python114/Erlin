@@ -5,18 +5,28 @@ class ClassBuilder:
     """
     класс строитель формирующий текст кода класса, с конструктором и без с возможностью добавления полей
     """
+    checker=1
     def __init__(self, class_name: str):
         self.cn = class_name
         self.fields: list[tuple[str, str | int | bool]] = []
 
-    def add_field(self, name: str, value: str | int | bool):
+
+    def add_field(self, name: str = f"someprop{checker}", value: str | int | bool = "somevalue"):
         """
         метод для добавления полей в список
         :param name: аттрибут
         :param value: значение
         :return: возвращает список кортежей - пар имя аттрибута - значение аттрибута
         """
-        self.fields += [(name, value)]
+
+        # при добавлении нового поля с занятым именем и другим значением его значение перезаписывается
+        names = [x for x, _ in self.fields]
+        if name not in names:
+            self.fields += [(name, value)]
+            self.checker+=1
+        else:
+            self.fields[names.index(name)] = (name, value)
+
         return self
 
     def __str__(self):
@@ -40,7 +50,7 @@ athlete = ClassBuilder("armwrestler")
 print(athlete)
 print()
 
-athlete.add_field("name", "Alex Kurdecha").add_field("age", 28).add_field("senior", True)
+athlete.add_field("name", "Alex Kurdecha").add_field("age", 28).add_field("senior", True).add_field("age", 33).add_field().add_field()
 
 print(athlete)
 
