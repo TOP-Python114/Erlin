@@ -20,7 +20,7 @@ class BNSh:
             if self.logging:
                 self.logfile = Path(argv[0]).parent / 'log.txt'
                 with open(self.logfile, "a", encoding='utf-8') as fp:
-                    fp.write(f"{datetime.datetime.now()}  command: {self.command},результат: {com1} \n")
+                    fp.write(f"{datetime.datetime.now()} {self.command} -> {com1} \n")
             return com1
 
         self.exit()
@@ -35,8 +35,9 @@ class Command:
         self.command = command
         self.commands = {"command1": "output of command1", "command2": "output of command2",
                          "command3": "output of command3", "logging": "logging is on"}
+
     def help(self):
-        return "\n".join([f"команда:{c} результат:{r}" for c,r in self.commands.items()])
+        return "\n".join([f"команда: {c}\tрезультат: {r}" for c, r in self.commands.items()])
 
     def res_of_com(self):
         if self.command == 'exit':
@@ -51,8 +52,8 @@ class Command:
         return self.command
 
 
-interpret = BNSh()
-interpret.start()
-while interpret.processing:
-    print(">>>", end="")
-    print(interpret.interprete(input()))
+shell = BNSh()
+shell.start()
+while shell.processing:
+    print(">>> ", end="")
+    print(shell.interprete(input()))
