@@ -20,7 +20,7 @@ class Dish(ABC):
                f"Описание: {self.description}\n" \
                f"Способ приготовления: {self.making_method}\n" \
                f"Цена: {self.price}\n" \
-               f"Cпособ употребления: {self.hte}\n" \
+               f"Способ употребления: {self.hte}\n" \
                f"Кухня: {self.type_}"
 
 
@@ -38,12 +38,10 @@ class Pizza(Dish):
         print('Едим пиццу')
 
 
-
-
-
 class Curry(Dish):
     def eat(self):
         print('Едим карри')
+
 
 
 class DishFactory(ABC):
@@ -76,11 +74,19 @@ class CurryFactory(DishFactory):
         return Curry("Карри", "Курица со специями ", "берем индуса, пусть готовит", 350, "ртом, руками", "индийская")
 
 
+
 PIZZAS_NAMES = ["Margarita", "Pepperoni", "Quattro Stagioni", "Napoletana"]
 pzs = []
 for _ in range(20):
-    pzs += [PizzaFactory().serving(choice(PIZZAS_NAMES), choice([Pizza.PIZZA_SIZES[size] for size in ("size30","size40","size50")]))]
+    pzs += [PizzaFactory().serving(
+        choice(PIZZAS_NAMES),
+        choice([Pizza.PIZZA_SIZES[size]
+                for size in ("size30","size40","size50")])
+    )]
 
 for pzz in pzs:
     print(pzz)
     print("\n")
+
+
+# stdout:

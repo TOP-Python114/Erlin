@@ -113,15 +113,21 @@ class CVBuilder:
         return self.html
 
 
-cv1 = CVBuilder('Иванов Иван Иванович', 26, 'художник-фрилансер', email='ivv@abc.de') \
-    .add_education("Новосибирский Государственный Университет", "Мехмат", 2005) \
-    .add_contact(telegram="@gmaoof") \
-    .add_project("Проект №1", "https://semantica.in/wp-content/uploads/2017/12/580b57fcd9996e24bc43c4c4-300x300-2.png",
-                 "https://st2.depositphotos.com/1014014/7742/i/600/depositphotos_77422142-stock-photo-references-check-mark-sign-concept.jpg") \
-    .add_project("Проект №2",
-                 "https://semantica.in/wp-content/uploads/2017/12/580b57fcd9996e24bc43c4c4-300x300-2.png",
-                 "https://st2.depositphotos.com/1014014/7742/i/600/depositphotos_77422142-stock-photo-references-check-mark-sign-concept.jpg") \
- \
+cv1 = CVBuilder('Иванов Иван Иванович', 26, 'художник-фрилансер', email='ivv@abc.de')\
+    .add_education("Новосибирский Государственный Университет", "Мехмат", 2005)\
+    .add_contact(telegram="@gmaoof")\
+    .add_project(
+        "Проект №1",
+        # КОММЕНТАРИЙ: есть такая классная штука, как сокращение ссылок — генерирование нового URL, который становится коротким псевдонимом для длинного исходного URL — например, https://clck.ru/
+        "https://semantica.in/wp-content/uploads/2017/12/580b57fcd9996e24bc43c4c4-300x300-2.png",
+        "https://st2.depositphotos.com/1014014/7742/i/600/depositphotos_77422142-stock-photo-references-check-mark-sign-concept.jpg")\
+    .add_project(
+        "Проект №2",
+        "https://semantica.in/wp-content/uploads/2017/12/580b57fcd9996e24bc43c4c4-300x300-2.png",
+        "https://st2.depositphotos.com/1014014/7742/i/600/depositphotos_77422142-stock-photo-references-check-mark-sign-concept.jpg")\
     .build().to_html()
 
 print(cv1)
+
+
+# stdout:

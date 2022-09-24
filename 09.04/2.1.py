@@ -80,8 +80,11 @@ fs = FilmSorter()
 fantas = fs.fantastic(black_rose, highlander, star_track_6)
 print(fantas)
 
-action=fs.action_movie(black_rose, highlander, star_track_6)
+action = fs.action_movie(black_rose, highlander, star_track_6)
 print(action)
+
+
+# stdout:
 """
 Фантастика:
 --------------------------------------------------

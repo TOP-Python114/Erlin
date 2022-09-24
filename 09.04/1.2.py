@@ -73,6 +73,8 @@ menu.add_child('li', 'Edit') \
     .add_sibling('p', 'Paste')
 print(body)
 
+
+# stdout:
 """
 <body id="body_bro">
     <div id="block1" display="flex">
