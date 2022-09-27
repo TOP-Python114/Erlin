@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from random import choice
 
+# ДОБАВИТЬ: строки документации для классов и методов!
+# ДОБАВИТЬ: аннотации типов параметров!
+
 
 class Dish(ABC):
     def __init__(self, dish, description, making_method, price, how_to_eat, type_):
@@ -20,7 +23,7 @@ class Dish(ABC):
                f"Описание: {self.description}\n" \
                f"Способ приготовления: {self.making_method}\n" \
                f"Цена: {self.price}\n" \
-               f"Cпособ употребления: {self.hte}\n" \
+               f"Способ употребления: {self.hte}\n" \
                f"Кухня: {self.type_}"
 
 
@@ -38,49 +41,26 @@ class Pizza(Dish):
         print('Едим пиццу')
 
 
-
-
-
 class Curry(Dish):
     def eat(self):
         print('Едим карри')
 
+# ДОБАВИТЬ: больше классов блюд — выбрать не из чего....)
 
-class DishFactory(ABC):
+
+
+class CuisineFactory(ABC):
     @staticmethod
     @abstractmethod
-    def serving(*args):
+    def serve(*args):
         pass
 
+# КОММЕНТАРИЙ: боюсь, вы не поняли смысл задачи — у нас должно быть фабрик по числу кухонь: каждая фабрика возвращает не отдельное блюдо, а набор или наборы блюд определённой кухни, выступая таким образом ещё и как фильтр
 
-class PastaFactory(DishFactory):
-    @staticmethod
-    def serving():
-        pst = Pasta("Паста", "Итальянские макарошки с соусом", "варим лапшу, делаем соус", 400,
-                    "вилка, большая тарелка", "итальянская")
-        pst.eat()
-        return pst
+#  ДОБАВИТЬ: реализации фабрик, пример использования, вывод примера
 
 
-class PizzaFactory(DishFactory):
-    @staticmethod
-    def serving(name: str, size: int):
-        return Pizza(f"Пицца: {name}",
-                     "Открытый пирог в виде лепешки, покрытой начинками, в первую очередь, расплавленным сыром",
-                     "тесто, соус, сыр, топпинги, скомплектовать и запечь", size, "вилка, большая тарелка", "итальянская")
+# stdout:
 
 
-class CurryFactory(DishFactory):
-    @staticmethod
-    def serving():
-        return Curry("Карри", "Курица со специями ", "берем индуса, пусть готовит", 350, "ртом, руками", "индийская")
-
-
-PIZZAS_NAMES = ["Margarita", "Pepperoni", "Quattro Stagioni", "Napoletana"]
-pzs = []
-for _ in range(20):
-    pzs += [PizzaFactory().serving(choice(PIZZAS_NAMES), choice([Pizza.PIZZA_SIZES[size] for size in ("size30","size40","size50")]))]
-
-for pzz in pzs:
-    print(pzz)
-    print("\n")
+# ИТОГ: переработать — 3/6

@@ -1,6 +1,9 @@
 # у меня ни в какую не хочет работать 3.10
+# КОММЕНТАРИЙ: так не описывают проблему — тренируйтесь содержательно формулировать свои наблюдения
+
 from __future__ import annotations
 
+# ДОБАВИТЬ: строки документации для классов и методов!
 
 class HTMLElement:
     default_indent_size = 4
@@ -9,13 +12,14 @@ class HTMLElement:
         self.name = name
         self.value = value
         self.elements: list['HTMLElement'] = []
+        # ДОБАВИТЬ: аннотацию типа для атрибута attrs
         self.attrs = "".join([f' {n}="{v}"' for n, v in attrs.items()])
 
     def __str__(self):
         return self.__str()
 
     def __str(self, indent_lvl: int = 0):
-        indent = ' ' * indent_lvl * self.__class__.default_indent_size
+        indent = ' '*indent_lvl*self.__class__.default_indent_size
         ret = f'{indent}<{self.name}{self.attrs}>{self.value}'
         if self.elements:
             for element in self.elements:
@@ -73,6 +77,8 @@ menu.add_child('li', 'Edit') \
     .add_sibling('p', 'Paste')
 print(body)
 
+
+# stdout:
 """
 <body id="body_bro">
     <div id="block1" display="flex">
@@ -92,5 +98,7 @@ print(body)
         </ul>
     </div>
 </body>
-
 """
+
+
+# ИТОГ: с документацией было бы очень хорошо — 3/4
