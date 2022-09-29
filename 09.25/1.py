@@ -55,7 +55,7 @@ class SomeModifier:
         print(f"{serb1}+{serb2}")
         self.cache += [serb1] + [serb2]
 
-
+#
 class AllModifiers(SomeModifier):
     """
     класс универсальный модификатор
