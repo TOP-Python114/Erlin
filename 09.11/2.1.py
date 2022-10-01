@@ -3,10 +3,15 @@ import re
 
 class Processor:
     """
-    адаптер позволяющий выводить слова в подярке очередности начиая с наиболее редко появляющихся
+    Адаптер, позволяющий выводить слова в порядке очередности, начиная с наиболее редко появляющихся.
     """
     def process_text(self, text):
-        return [word for word, _ in sorted([(word, counter) for word, counter in WordCounter(text).get_all_words().items()], key=lambda pair: pair[1])]
+        return [
+            word
+            for word, _ in sorted(
+                [(word, counter) for word, counter in WordCounter(text).get_all_words().items()],
+                key=lambda pair: pair[1])
+        ]
 
 
 class TextParser:
@@ -49,6 +54,8 @@ proc = Processor()
 texto = TextParser("пять пять пять пять пять три три три один четыре четыре четыре четыре !@№;%:%;№: два два")
 texto.get_processed_text(proc)
 
+
+# stdout:
 """
 один
 два
