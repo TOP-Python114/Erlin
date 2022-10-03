@@ -3,10 +3,17 @@ import re
 
 class Processor:
     """
-    адаптер позволяющий выводить слова в подярке очередности начиая с наиболее редко появляющихся
+    Адаптер, позволяющий выводить слова в порядке очередности, начиная с наиболее редко появляющихся.
     """
+    # КОММЕНТАРИЙ: в один метод тоже можно, но это скорее функциональный подход, чем объектно-ориентированный — лучше бы вам здесь добавить конструктор, выполнить нужные методы по-очереди, посмотреть, какие объекты возвращаются на каждом этапе
     def process_text(self, text):
-        return [word for word, _ in sorted([(word, counter) for word, counter in WordCounter(text).get_all_words().items()], key=lambda pair: pair[1])]
+        return [
+            word
+            for word, _ in sorted(
+                # ИСПРАВИТЬ: словарный метод items() возвращает те же кортежи, которые вы здесь переупаковываете в список — совершенно лишнее действие
+                [(word, counter) for word, counter in WordCounter(text).get_all_words().items()],
+                key=lambda pair: pair[1])
+        ]
 
 
 class TextParser:
@@ -49,6 +56,8 @@ proc = Processor()
 texto = TextParser("пять пять пять пять пять три три три один четыре четыре четыре четыре !@№;%:%;№: два два")
 texto.get_processed_text(proc)
 
+
+# stdout:
 """
 один
 два
@@ -56,3 +65,6 @@ texto.get_processed_text(proc)
 четыре
 пять
 """
+
+
+# ИТОГ: неплохо — 4/7
