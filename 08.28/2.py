@@ -15,7 +15,7 @@ from itertools import pairwise
 class Point:
     x: int
     y: int
-  
+
 @dataclass
 class LineSegment:
     point1:Point
