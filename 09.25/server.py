@@ -1,4 +1,3 @@
-import re
 import socket
 from abc import ABC, abstractmethod
 
@@ -60,7 +59,7 @@ class Server(Request):
 
 
 class OK(Server):
-    """Класс запрос200. """
+    """Класс запрос200."""
 
     def execute(self, order: str):
         if order == '200':
