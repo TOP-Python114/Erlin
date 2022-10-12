@@ -14,7 +14,7 @@ class Interface:
                                         "200",
                                         "500",
                                         "403",
-                                        "404"], textvariable=name)
+                                        "404","37999"], textvariable=name)
         self.combo_entry.pack()
         self.output = Label(self.root)
         self.output.pack()
