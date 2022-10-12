@@ -80,6 +80,7 @@ class Forbidden(Server):
 
 class NotFound(Server):
     """Класс, запрос 403. """
+
     def execute(self, order: str):
         if order == '404':
             return "Code 404 - Not found"
