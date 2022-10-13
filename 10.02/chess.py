@@ -33,7 +33,7 @@ class Piece:
     color: PieceColor
     kind: PieceKind
     square: Optional['Square']
-    
+
     def __post_init__(self):
         self.removed: bool = False
     
@@ -49,8 +49,10 @@ class Piece:
     def __str__(self):
         return self.color.name[0] + self.kind.name[0]
     
-    def move(self, end_square: 'Square') -> None:
+    def move(self,turn:'Turn', end_square: 'Square') -> None:
         """Осуществляет проверку, ход фигуры и взятие фигуры противника."""
+        turn.start = self.square
+        turn.figure=self
         if end_square.piece is not None:
             if end_square.piece.color is self.color:
                 raise Exception
@@ -59,6 +61,10 @@ class Piece:
         self.square.piece = None
         self.square = end_square
         end_square.piece = self
+
+        turn.end=self.square
+
+
 
 
 @dataclass
@@ -138,3 +144,19 @@ class Chessboard(dict):
             return self.__rank(int(key))
         else:
             raise KeyError
+
+class Turn:
+    figure:'Piece'
+    start:'Square'
+    end:'Square'
+
+    def __str__(self):
+        return f"{self.figure}:{self.start} - {self.end}"
+board=Chessboard()
+
+
+print(board['e4'].piece)
+board['e2'].piece.move(t1:=Turn(),board['e4'])
+print(board['e4'].piece)
+
+print(t1)
