@@ -6,6 +6,7 @@ class Carrier(ABC):
     """
     абстрактный класс назначения груза
     """
+
     @abstractmethod
     def carry_military(self, items):
         pass
@@ -21,9 +22,11 @@ class Cargo(Carrier):
     """
 
     def carry_military(self, items):
+        """Печатает описание военного грузового самолета"""
         print(f"Военный самолет перевозящий {items} тонн груза ")
 
     def carry_commercial(self, items):
+        """Печатает описание грузового гражданского самолета """
         print(f"Гражданский самолет перевозящий {items} тонн груза")
 
 
@@ -33,18 +36,23 @@ class CargoMail(Cargo):
     """
 
     def carry_military(self, items):
+        """Печатает описание самолета военной спецсвязи"""
         print(f"Самолет военной спецсвязи везет {items} единиц секретной почты")
 
     def carry_commercial(self, items):
+        """Печатает описание сампочтового самолета"""
         print(f"Гражданский самолет перевозящий {items} почтовых отправлений")
 
 
 class Passengers(Carrier):
     """класс пассажиров"""
+
     def carry_military(self, items):
+        """Печатает описание военно-транспортного самолета"""
         print(f"В военный самолет село {items} солдат ")
 
     def carry_commercial(self, items):
+        """Печатает описание транспортного самолета"""
         print(f"В самолет село {items} пассажиров")
 
 
@@ -53,6 +61,9 @@ class Plane(ABC):
     """
     абстрактный класс назначения самолета
     """
+    def __init__(self, carry: Carrier, objects):
+        self.carrier = carry
+        self.objects = objects
 
     @abstractmethod
     def display_description(self):
@@ -65,7 +76,7 @@ class Plane(ABC):
     @abstractmethod
     def add_objects(self, new_objects: int):
         """
-        добавляет нужное количество груза | пассажиров | почты
+        Добавляет нужное количество груза | пассажиров | почты
         :param new_objects: количество груза | пассажиров | почты
         :return: None
         """
@@ -77,17 +88,14 @@ class Commercial(Plane):
     класс коммерческого (гражданского) самолета
     """
 
-    def __init__(self, carry: Carrier, objects):
-        self.carrier = carry
-        self.objects = objects
-
     def display_description(self):
         """
-        :return: готовое описание объекта
+        Выводит описание назначения коммерческого самолета
         """
         self.carrier.carry_commercial(self.objects)
 
     def add_objects(self, new_objects):
+        """Добавляет коммерческого груза|людей """
         self.objects += new_objects
 
 
@@ -96,14 +104,12 @@ class Military(Plane):
     класс военного самолета
     """
 
-    def __init__(self, carrier: Carrier, objects: int):
-        self.carrier = carrier
-        self.objects = objects
-
     def display_description(self):
+        """выводит описание военного самолета"""
         self.carrier.carry_military(self.objects)
 
     def add_objects(self, new_objects):
+        """Добавляет военного груза| солдатов| почты"""
         self.objects += new_objects
 
 
