@@ -29,3 +29,4 @@ class Email:
         """Добавляет значение поля __email в файл."""
         with open(self.file_path, 'a', encoding='utf-8') as fileout:
             fileout.write(self.email + '\n')
+
