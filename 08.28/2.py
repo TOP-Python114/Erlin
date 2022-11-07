@@ -31,7 +31,7 @@ class LineSegment:
 class Polygon(list):
     def __init__(self: list[Point]):
         super().__init__()
-    #Поясните пожалуйста зачем нужен конструктор?
+   
 
     @property
     def perimeter(self):
