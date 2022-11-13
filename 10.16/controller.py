@@ -48,6 +48,7 @@ class Application:
         self.view.end_view()
 
 
-if __name__ == '__main__':
-    app = Application(CLIView())
-    app.start()
+#if __name__ == '__main__':
+
+app = Application(CLIView())
+app.start()
