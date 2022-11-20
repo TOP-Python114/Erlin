@@ -1,6 +1,6 @@
+"""CLI представление MVC."""
+
 from time import sleep
-from typing import Collection
-import re
 
 
 class CLIView:
@@ -12,8 +12,6 @@ class CLIView:
         prompt = 'Введите почту\n'
         email = input(prompt)
         return email
-
-
 
     def end_view(self) -> None:
         print('Пока!')

@@ -18,7 +18,7 @@ class Email:
 
     @email.setter
     def email(self, value: str):
-        """Проверяет, является ли переданныя строка корректным email адресом, и устанавливает значение поля __email."""
+        """Проверяет, является ли переданная строка корректным email адресом, и устанавливает значение поля __email."""
         pattern = r'\b[a-zA-Z0-9_.-]+@[a-zA-Z0-9.-]+\.[A-Z|a-z]{2,}\b'
         if re.fullmatch(pattern, value):
             self.__email = value

@@ -1,23 +1,24 @@
-import re
+"""Контроллер MVC."""
 
 from model import Email
 from view import CLIView
 
 
 class Application:
-    """класс контроллер"""
+    """Контроллер"""
+
     def __init__(self, view: CLIView):
         self.em = None
         self.view = view
 
-    def start(self)->None:
-        "Приветствует и начинает проверку"
+    def start(self) -> None:
+        """Приветствует и начинает проверку"""
         self.view.start_view()
         self.check_email()
 
     def one_else(self):
-        "Зацикливает ввод почты"
-        param = input("еще?\n")
+        """Зацикливает ввод почты"""
+        param = input("ещё?\n")
         if param in ('y', 'Y', 'д', "Д"):
             return self.check_email()
         else:
@@ -38,17 +39,14 @@ class Application:
             print("Неверная почта")
             self.one_else()
 
-
-    def save_email(self)->None:
-        """СОхраняет почту"""
+    def save_email(self) -> None:
+        """Сохраняет почту"""
         self.em.save()
 
-    def end(self)->None:
+    def end(self) -> None:
         """Завершает работу"""
         self.view.end_view()
 
-
-#if __name__ == '__main__':
 
 app = Application(CLIView())
 app.start()
