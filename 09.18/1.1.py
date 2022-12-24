@@ -3,8 +3,9 @@ from time import time
 
 
 class Generator:
-    """Класс одного статического метода формирующего список случайного числа от 1 до 9"""
-
+    """
+    Класс одного статического метода формирующего список случайного числа от 1 до 9
+    """
     @staticmethod
     def generate(count: int) -> list:
         """Формирует список случайного числа от 1 до 9"""
@@ -12,8 +13,9 @@ class Generator:
 
 
 class Splitter:
-    """Класс разбивающий квадрат на линии, идентичность которых в дальнейшем необходимо верифицировать"""
-
+    """
+    Класс разбивающий квадрат на линии, идентичность которых в дальнейшем необходимо верифицировать
+    """
     @staticmethod
     def split(array: list[list]) -> list:
         """Разбивает 2d список на списки """
@@ -52,8 +54,9 @@ class Splitter:
 
 
 class Verifier:
-    """Класс верифицирующий квадрат"""
-
+    """
+    Класс верифицирующий квадрат
+    """
     @staticmethod
     def verify(arrays: list[list]) -> bool:
         """Верификация списков (Тру если все списки равны по сумме)"""
@@ -67,8 +70,9 @@ class Verifier:
 
 
 class MagicSquareGenerator:
-    """Класс формирующий магический квадрат"""
-
+    """
+    Класс формирующий магический квадрат
+    """
     def __init__(self, width: int):
         self.w = width
         self.gen = Generator()
@@ -76,7 +80,7 @@ class MagicSquareGenerator:
         self.sp = Splitter()
 
     def generate(self) -> str:
-        """Генерирует квадрат с одинаковыми суммами по горизонтали, вертикали, диагонали"""
+        """Генерирует квадрат с одинаковыми суммами по горизонтали, вертикали, диагонали."""
         while True:
             self.res = [self.gen.generate(self.w) for _ in range(self.w)]
             if self.ver.verify(self.sp.split(self.res)):
@@ -85,6 +89,7 @@ class MagicSquareGenerator:
                     self.res
                 ))
 
+    # КОММЕНТАРИЙ: не очень понял, зачем это — здесь у вас не магический квадрат, а квадрат, заполненный одинаковыми числами
     def joke_generate(self) -> str:
         """
         генерация идеального "магического" квадрата
@@ -98,12 +103,16 @@ class MagicSquareGenerator:
                 for _ in range(self.w)
             ]
         ))
+        # ИСПОЛЬЗОВАТЬ: кстати, слишком сложно генерируемый — можно проще:
+        # row = (f'{ran} '*self.w).strip() + '\n'
+        # return (row*self.w).strip()
 
 
 a = MagicSquareGenerator(3)
 
 print(a.joke_generate())
 
+# КОММЕНТАРИЙ: с задачей засечь отрезок времени куда лучше справляются perf_counter() и perf_counter_ns() из того же модуля
 time_ = time()
 print(a.generate())
 print(time() - time_)
@@ -120,3 +129,6 @@ print(time() - time_)
 6  7  8
 8  6  7
 """
+
+
+# ИТОГ: хорошо — 6/6

@@ -89,9 +89,7 @@ class Commercial(Plane):
     """
 
     def display_description(self):
-        """
-        Выводит в stdout описание назначения коммерческого самолета
-        """
+        """Выводит в stdout описание назначения коммерческого самолета"""
         self.carrier.carry_commercial(self.objects)
 
     def add_objects(self, new_objects):
@@ -129,3 +127,6 @@ mil_post.display_description()
 В самолет село 300 солдат 
 Самолет военной спецсвязи везет 1000 единиц секретной почты
 """
+
+
+# ИТОГ: очень хорошо — 6/6
