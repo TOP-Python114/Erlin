@@ -22,11 +22,11 @@ class Cargo(Carrier):
     """
 
     def carry_military(self, items):
-        """Печатает описание военного грузового самолета"""
+        """Выводит в stdout описание военного грузового самолета"""
         print(f"Военный самолет перевозящий {items} тонн груза ")
 
     def carry_commercial(self, items):
-        """Печатает описание грузового гражданского самолета """
+        """Выводит в stdout описание грузового гражданского самолета """
         print(f"Гражданский самолет перевозящий {items} тонн груза")
 
 
@@ -36,11 +36,11 @@ class CargoMail(Cargo):
     """
 
     def carry_military(self, items):
-        """Печатает описание самолета военной спецсвязи"""
+        """Выводит в stdout описание самолета военной спецсвязи"""
         print(f"Самолет военной спецсвязи везет {items} единиц секретной почты")
 
     def carry_commercial(self, items):
-        """Печатает описание сампочтового самолета"""
+        """Выводит в stdout описание почтового самолета"""
         print(f"Гражданский самолет перевозящий {items} почтовых отправлений")
 
 
@@ -48,11 +48,11 @@ class Passengers(Carrier):
     """класс пассажиров"""
 
     def carry_military(self, items):
-        """Печатает описание военно-транспортного самолета"""
+        """Выводит в stdout описание военно-транспортного самолета"""
         print(f"В военный самолет село {items} солдат ")
 
     def carry_commercial(self, items):
-        """Печатает описание транспортного самолета"""
+        """Выводит в stdout описание транспортного самолета"""
         print(f"В самолет село {items} пассажиров")
 
 
@@ -68,16 +68,16 @@ class Plane(ABC):
     @abstractmethod
     def display_description(self):
         """
+        Выводит в stdout готовое описание объекта
         :return: None
-        вывод на принт готового описание объекта
         """
         pass
 
     @abstractmethod
     def add_objects(self, new_objects: int):
         """
-        Добавляет нужное количество груза | пассажиров | почты
-        :param new_objects: количество груза | пассажиров | почты
+        Добавляет нужное количество груза / пассажиров / почты
+        :param new_objects: количество груза / пассажиров / почты
         :return: None
         """
         pass
@@ -90,12 +90,12 @@ class Commercial(Plane):
 
     def display_description(self):
         """
-        Выводит описание назначения коммерческого самолета
+        Выводит в stdout описание назначения коммерческого самолета
         """
         self.carrier.carry_commercial(self.objects)
 
     def add_objects(self, new_objects):
-        """Добавляет коммерческого груза|людей """
+        """Добавляет объекты: коммерческого груза / людей """
         self.objects += new_objects
 
 
@@ -105,11 +105,11 @@ class Military(Plane):
     """
 
     def display_description(self):
-        """выводит описание военного самолета"""
+        """Выводит в stdout описание военного самолета"""
         self.carrier.carry_military(self.objects)
 
     def add_objects(self, new_objects):
-        """Добавляет военного груза| солдатов| почты"""
+        """Добавляет объекты: военного груза / солдат / почты"""
         self.objects += new_objects
 
 

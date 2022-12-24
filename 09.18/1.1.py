@@ -1,13 +1,12 @@
-from itertools import permutations
-import time
 from random import randint
+from time import time
 
 
 class Generator:
     """Класс одного статического метода формирующего список случайного числа от 1 до 9"""
 
     @staticmethod
-    def generate(count: int)->list:
+    def generate(count: int) -> list:
         """Формирует список случайного числа от 1 до 9"""
         return [randint(1, 9) for _ in range(count)]
 
@@ -76,30 +75,38 @@ class MagicSquareGenerator:
         self.ver = Verifier()
         self.sp = Splitter()
 
-    def generate(self)->str:
+    def generate(self) -> str:
         """Генерирует квадрат с одинаковыми суммами по горизонтали, вертикали, диагонали"""
         while True:
             self.res = [self.gen.generate(self.w) for _ in range(self.w)]
             if self.ver.verify(self.sp.split(self.res)):
-                return "\n".join(map(lambda a: "  ".join(map(str, a)), self.res))
+                return "\n".join(map(
+                    lambda a: "  ".join(map(str, a)),
+                    self.res
+                ))
 
-    def joke_generate(self)->str:
+    def joke_generate(self) -> str:
         """
         генерация идеального "магического" квадрата
         :return: строковое представление квадрата
         """
         ran = randint(1, 999999)
-        return ("\n" * self.w).join(
-            map(lambda a: " ".join(a), [[str(ran) for _ in range(self.w)] for _ in range(self.w)]))
+        return ("\n" * self.w).join(map(
+            lambda a: " ".join(a),
+            [
+                [str(ran) for _ in range(self.w)]
+                for _ in range(self.w)
+            ]
+        ))
 
 
 a = MagicSquareGenerator(3)
 
 print(a.joke_generate())
 
-time_ = time.time()
+time_ = time()
 print(a.generate())
-print(time.time() - time_)
+print(time() - time_)
 
 """
 915077 915077 915077
