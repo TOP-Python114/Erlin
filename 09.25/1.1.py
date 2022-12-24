@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from datetime import datetime as dt
 from random import randrange as rr, choice as ch
 from string import ascii_lowercase as alc
 from typing import Optional
-import datetime
+
 
 @dataclass
 class Serb:
@@ -39,19 +40,19 @@ class SomeModifier:
     def print_msg(self):
         msg = self.stc.messages.pop()
         self.cache += [msg]
-        self.history += [[str(datetime.datetime.now()),"Печать сообщения", msg]]
+        self.history += [[str(dt.now()), "Печать сообщения", msg]]
         print(msg)
 
     def sum_nums(self):
         nums = self.stc.numbers.pop()
         self.cache += [nums]
-        self.history += [[str(datetime.datetime.now()),"Печать суммы последнего элемента", nums]]
+        self.history += [[str(dt.now()), "Печать суммы последнего элемента", nums]]
         print(sum(nums))
 
     def marry_two_serbians(self):
         serb1 = self.stc.serbian_lastnames.pop()
         serb2 = self.stc.serbian_lastnames.pop()
-        self.history += [[str(datetime.datetime.now()),"Женитьба сербов", (serb1.name, serb2.name)]]
+        self.history += [[str(dt.now()), "Женитьба сербов", (serb1.name, serb2.name)]]
         print(f"{serb1}+{serb2}")
         self.cache += [serb1] + [serb2]
 
@@ -75,13 +76,13 @@ class AllModifiers(SomeModifier):
         :return:
         """
         if isinstance(self.cache[-1], list):
-            self.history += [[str(datetime.datetime.now()),"отмена операции", f" возвращение удаленного списка чисел {self.cache[-1]}" ]]
+            self.history += [[str(dt.now()), "отмена операции", f" возвращение удаленного списка чисел {self.cache[-1]}"]]
             self.stc.numbers += [self.cache.pop()]
         elif isinstance(self.cache[-1], str):
-            self.history += [[str(datetime.datetime.now()),"отмена операции", f" возвращение удаленного сообщения {self.cache[-1]}"]]
+            self.history += [[str(dt.now()), "отмена операции", f" возвращение удаленного сообщения {self.cache[-1]}"]]
             self.stc.messages += [self.cache.pop()]
         elif isinstance(self.cache[-1], Serb):
-            self.history += [[str(datetime.datetime.now()),"отмена операции", f" возвращение сербов в стек холостых {self.cache[-1]} и {self.cache[-2]}"]]
+            self.history += [[str(dt.now()), "отмена операции", f" возвращение сербов в стек холостых {self.cache[-1]} и {self.cache[-2]}"]]
             self.stc.serbian_lastnames += [self.cache.pop()]
             self.stc.serbian_lastnames += [self.cache.pop()]
 

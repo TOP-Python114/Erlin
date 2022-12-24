@@ -1,16 +1,16 @@
-import socket
 from abc import ABC, abstractmethod
+from socket import socket, AF_INET, SOCK_STREAM
 
 
 class Request(ABC):
     @abstractmethod
     def next_request(self, request: "Server"):
-        """Передает выполнение команды следующему в цепочке ответственности"""
+        """Передает выполнение команды следующему в цепочке ответственности."""
         pass
 
     @abstractmethod
     def execute(self, order: int):
-        """Принимает команду на исполнение """
+        """Принимает команду на исполнение."""
         pass
 
 
@@ -21,12 +21,12 @@ class Server(Request):
         self.__next_request = None
 
     def next_request(self, request: Request):
-        """Реализует абстрактный метод next_request """
+        """Реализует абстрактный метод next_request."""
         self.__next_request = request
         return request
 
     def execute(self, order: str):
-        """Исполняет паереданный в него запрос"""
+        """Исполняет переданный в него запрос."""
         if self.__next_request is not None:
             return self.__next_request.execute(order)
         return "Отправленного вами запроса не существует"
@@ -43,7 +43,7 @@ class Server(Request):
 
     @classmethod
     def start_server(cls):
-        serv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto=0)
+        serv_sock = socket(AF_INET, SOCK_STREAM, proto=0)
         serv_sock.bind(('', 11111))
         serv_sock.listen(10)
 
@@ -59,7 +59,7 @@ class Server(Request):
 
 
 class OK(Server):
-    """Класс запрос200."""
+    """Запрос 200."""
 
     def execute(self, order: str):
         if order == '200':
@@ -69,7 +69,7 @@ class OK(Server):
 
 
 class Forbidden(Server):
-    """Класс, запрос 403. """
+    """Запрос 403."""
 
     def execute(self, order: str):
         if order == '403':
@@ -79,7 +79,7 @@ class Forbidden(Server):
 
 
 class NotFound(Server):
-    """Класс, запрос 403. """
+    """Запрос 404."""
 
     def execute(self, order: str):
         if order == '404':
@@ -89,7 +89,7 @@ class NotFound(Server):
 
 
 class InternalServerError(Server):
-    """Класс, запрос 503. """
+    """Запрос 500."""
 
     def execute(self, order: str):
         if order == '500':
