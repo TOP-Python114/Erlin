@@ -17,12 +17,15 @@ class SomeModifier:
     """Класс цепочки, запускает обработку данных."""
 
     def __init__(self, some_tc: 'TestCase'):
+        # КОММЕНТАРИЙ: за кэш хвалю!
         self.cache = []
+        # ИСПРАВИТЬ: такие сложные аннотации лучше объявлять отдельно
         self.history: list[list[str, list | str | Serb]] = []
         self.stc = some_tc
         self.previous_modifier: Optional[SomeModifier] = None
         self.next_modifier: Optional[SomeModifier] = None
 
+    # УДАЛИТЬ: и причём здесь цепочка?
     def add_modifier(self, modifier: 'SomeModifier'):
         """Формирует звено цепочки."""
         if self.next_modifier is None:
@@ -40,6 +43,7 @@ class SomeModifier:
     def print_msg(self):
         msg = self.stc.messages.pop()
         self.cache += [msg]
+        # КОММЕНТАРИЙ: с точностью до микросекунды?
         self.history += [[str(dt.now()), "Печать сообщения", msg]]
         print(msg)
 
@@ -53,10 +57,11 @@ class SomeModifier:
         serb1 = self.stc.serbian_lastnames.pop()
         serb2 = self.stc.serbian_lastnames.pop()
         self.history += [[str(dt.now()), "Женитьба сербов", (serb1.name, serb2.name)]]
-        print(f"{serb1}+{serb2}")
-        self.cache += [serb1] + [serb2]
+        print(f"{serb1} + {serb2}")
+        self.cache += [serb1, serb2]
 
-#
+
+# УДАЛИТЬ: так и не понял, н̶а̶ф̶и̶г̶а̶ ̶к̶о̶з̶е̶ ̶б̶а̶я̶н̶ зачем здесь реализация цепочки — это на перспективу какую-то? тогда комментировать надо
 class AllModifiers(SomeModifier):
     """
     класс универсальный модификатор
@@ -70,6 +75,7 @@ class AllModifiers(SomeModifier):
     def marry_two_serbians(self):
         super().marry_two_serbians()
 
+    # КОММЕНТАРИЙ: этот код прекрасно помещается в одноимённом методе класса SomeModifier — и ничего не изменится
     def undo(self):
         """
         отмена последней модификации
@@ -90,6 +96,7 @@ class AllModifiers(SomeModifier):
 
 
 class TestCase:
+    # УДАЛИТЬ: атрибуты класса не используются
     messages: []
     numbers: []
     serbian_lastnames: []
@@ -103,9 +110,12 @@ class TestCase:
             [rr(10, 100) for _ in range(rr(4, 7))]
             for _ in range(10)
         ]
+        lastnames = ["Йовано", "Ивано", "Петро", "Михайло", "Нико", "Родолюбо", "Цвияно", "Йо"]
+        suffixes = ["вич", "шич", "лич", "ич"]
         self.serbian_lastnames = [
-            Serb(ch(["Йовано", "Ивано", "Петро", "Михайло", "Нико", "Родолюбо", "Цвияно", "Йо"]) + ch(
-                ["вич", "шич", "лич", "ич"])) for _ in range(10)]
+            Serb(ch(lastnames) + ch(suffixes))
+            for _ in range(10)
+        ]
 
 
 tc = TestCase()
@@ -130,3 +140,6 @@ gkd
 2022-09-29 16:50:55.127739 : отмена операции -  возвращение сербов в стек холостых Петрович и Цвияношич
 2022-09-29 16:50:55.127739 : отмена операции -  возвращение удаленного списка чисел [45, 24, 45, 37]
 """
+
+
+# ИТОГ: шаблон команды отработан хорошо, работа со стеком порадовала — 10/12
